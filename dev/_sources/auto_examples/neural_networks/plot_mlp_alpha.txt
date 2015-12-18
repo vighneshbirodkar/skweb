@@ -1,0 +1,37 @@
+
+
+.. _example_neural_networks_plot_mlp_alpha.py:
+
+
+================================================
+Varying regularization in Multi-layer Perceptron
+================================================
+
+A comparison of different values for regularization parameter 'alpha' on
+synthetic datasets. The plot shows that different alphas yield different
+decision functions.
+
+Alpha is a parameter for regularization term, aka penalty term, that combats
+overfitting by constraining the size of the weights. Increasing alpha may fix
+high variance (a sign of overfitting) by encouraging smaller weights, resulting
+in a decision boundary plot that appears with lesser curvatures.
+Similarly, decreasing alpha may fix high bias (a sign of underfitting) by
+encouraging larger weights, potentially resulting in a more complicated
+decision boundery.
+
+
+
+.. image:: images/plot_mlp_alpha_001.png
+    :align: center
+
+
+
+
+**Python source code:** :download:`plot_mlp_alpha.py <plot_mlp_alpha.py>`
+
+.. literalinclude:: plot_mlp_alpha.py
+    :lines: 18-
+
+**Total running time of the example:**  3.93 seconds
+( 0 minutes  3.93 seconds)
+    

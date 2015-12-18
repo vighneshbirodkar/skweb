@@ -1,0 +1,57 @@
+
+
+.. _example_neural_networks_plot_mnist_filters.py:
+
+
+=====================================
+Visualization of MLP weights on MNIST
+=====================================
+
+Sometimes looking at the learned coefficients of a neural network can provide
+insight into the learning behavior. For example if weights look unstructured,
+maybe some were not used at all, or if very large coefficients exist, maybe
+regularization was too low or the learning rate too high.
+
+This example shows how to plot some of the first layer weights in a
+MLPClassifier trained on the MNIST dataset.
+
+The input data consists of 28x28 pixel handwritten digits, leading to 784
+features in the dataset. Therefore the first layer weight matrix have the shape
+(784, hidden_layer_sizes[0]).  We can therefore visualize a single column of
+the weight matrix as a 28x28 pixel image.
+
+To make the example run faster, we use very few hidden units, and train only
+for a very short time. Training longer would result in weights with a much
+smoother spatial appearance.
+
+
+
+.. image:: images/plot_mnist_filters_001.png
+    :align: center
+
+
+**Script output**::
+
+  Iteration 1, loss = 0.31951021
+  Iteration 2, loss = 0.15102797
+  Iteration 3, loss = 0.11172119
+  Iteration 4, loss = 0.09282186
+  Iteration 5, loss = 0.07973827
+  Iteration 6, loss = 0.07093007
+  Iteration 7, loss = 0.06176809
+  Iteration 8, loss = 0.05658643
+  Iteration 9, loss = 0.05023765
+  Iteration 10, loss = 0.04612392
+  Training set score: 0.987267
+  Test set score: 0.971800
+
+
+
+**Python source code:** :download:`plot_mnist_filters.py <plot_mnist_filters.py>`
+
+.. literalinclude:: plot_mnist_filters.py
+    :lines: 23-
+
+**Total running time of the example:**  28.44 seconds
+( 0 minutes  28.44 seconds)
+    

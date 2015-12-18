@@ -1,0 +1,398 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  
+    <title>Compare Stochastic learning strategies for MLPClassifier &mdash; scikit-learn 0.18.dev0 documentation</title>
+  <!-- htmltitle is before nature.css - we use this hack to load bootstrap first -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" media="screen" />
+  <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css"/>
+
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.18.dev0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="top" title="scikit-learn 0.18.dev0 documentation" href="../../index.html" />
+    <link rel="up" title="Examples" href="../index.html" />
+    <link rel="next" title="Varying regularization in Multi-layer Perceptron" href="plot_mlp_alpha.html" />
+    <link rel="prev" title="Visualization of MLP weights on MNIST" href="plot_mnist_filters.html" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="../../_static/js/bootstrap.min.js" type="text/javascript"></script>
+  <link rel="canonical" href="http://scikit-learn.org/stable/auto_examples/neural_networks/plot_mlp_training_curves.html" />
+
+  <script type="text/javascript">
+    $("div.buttonNext, div.buttonPrevious").hover(
+       function () {
+           $(this).css('background-color', '#FF9C34');
+       },
+       function () {
+           $(this).css('background-color', '#A7D6E2');
+       }
+    );
+  </script>
+
+  </head>
+  <body>
+
+<div class="header-wrapper">
+    <div class="header">
+        <p class="logo"><a href="../../index.html">
+            <img src="../../_static/scikit-learn-logo-small.png" alt="Logo"/>
+        </a>
+        </p><div class="navbar">
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../install.html">Installation</a></li>
+                <li class="btn-li"><div class="btn-group">
+              <a href="../../documentation.html">Documentation</a>
+              <a class="btn dropdown-toggle" data-toggle="dropdown">
+                 <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+            <li class="link-title">Scikit-learn 0.18 (development)</li>
+            <li><a href="../../tutorial/index.html">Tutorials</a></li>
+            <li><a href="../../user_guide.html">User guide</a></li>
+            <li><a href="../../modules/classes.html">API</a></li>
+            <li><a href="../../faq.html">FAQ</a></li>
+            <li><a href="../../developers/contributing.html">Contributing</a></li>
+            <li class="divider"></li>
+                <li><a href="http://scikit-learn.org/stable/documentation.html">Scikit-learn 0.17 (stable)</a></li>
+                <li><a href="http://scikit-learn.org/0.16/documentation.html">Scikit-learn 0.16</a></li>
+                <li><a href="http://scikit-learn.org/0.15/documentation.html">Scikit-learn 0.15</a></li>
+				<li><a href="../../_downloads/scikit-learn-docs.pdf">PDF documentation</a></li>
+              </ul>
+            </div>
+        </li>
+            <li><a href="../index.html">Examples</a></li>
+            </ul>
+
+            <div class="search_form">
+                <div id="cse" style="width: 100%;"></div>
+            </div>
+        </div> <!-- end navbar --></div>
+</div>
+
+
+<!-- Github "fork me" ribbon -->
+<a href="https://github.com/scikit-learn/scikit-learn">
+  <img class="fork-me"
+       style="position: absolute; top: 0; right: 0; border: 0;"
+       src="../../_static/img/forkme.png"
+       alt="Fork me on GitHub" />
+</a>
+
+<div class="content-wrapper">
+    <div class="sphinxsidebar">
+    <div class="sphinxsidebarwrapper">
+        <div class="rel">
+    
+
+  <!-- rellinks[1:] is an ugly hack to avoid link to module
+  index -->
+        <div class="rellink">
+        <a href="plot_mnist_filters.html"
+        accesskey="P">Previous
+        <br/>
+        <span class="smallrellink">
+        Visualization of...
+        </span>
+            <span class="hiddenrellink">
+            Visualization of MLP weights on MNIST
+            </span>
+        </a>
+        </div>
+
+    <!-- Ad a link to the 'up' page -->
+        <div class="spacer">
+        &nbsp;
+        </div>
+        <div class="rellink">
+        <a href="../index.html">
+        Up
+        <br/>
+        <span class="smallrellink">
+        Examples
+        </span>
+            <span class="hiddenrellink">
+            Examples
+            </span>
+            
+        </a>
+        </div>
+    </div>
+    
+      <p class="doc-version">This documentation is for scikit-learn <strong>version 0.18.dev0</strong> &mdash; <a href="http://scikit-learn.org/stable/support.html#documentation-resources">Other versions</a></p>
+    <p class="citing">If you use the software, please consider <a href="../../about.html#citing-scikit-learn">citing scikit-learn</a>.</p>
+    <ul>
+<li><a class="reference internal" href="#">Compare Stochastic learning strategies for MLPClassifier</a></li>
+</ul>
+
+    </div>
+</div>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" checked />
+<label for="nav-trigger"></label>
+
+
+
+
+      <div class="content">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="compare-stochastic-learning-strategies-for-mlpclassifier">
+<span id="example-neural-networks-plot-mlp-training-curves-py"></span><h1>Compare Stochastic learning strategies for MLPClassifier<a class="headerlink" href="#compare-stochastic-learning-strategies-for-mlpclassifier" title="Permalink to this headline">¶</a></h1>
+<p>This example visualizes some training loss curves for different stochastic
+learning strategies, including SGD and Adam. Because of time-constraints, we
+use several small datasets, for which L-BFGS might be more suitable. The
+general trend shown in these examples seems to carry over to larger datasets,
+however.</p>
+<img alt="../../_images/plot_mlp_training_curves_001.png" class="align-center" src="../../_images/plot_mlp_training_curves_001.png" />
+<p><strong>Script output</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre>learning on dataset iris
+training: constant learning-rate
+Training set score: 0.973333
+Training set loss: 0.098011
+training: constant with momentum
+Training set score: 0.980000
+Training set loss: 0.050168
+training: constant with Nesterov&#39;s momentum
+Training set score: 0.980000
+Training set loss: 0.050133
+training: inv-scaling learning-rate
+Training set score: 0.633333
+Training set loss: 1.032142
+training: inv-scaling with momentum
+Training set score: 0.860000
+Training set loss: 0.529899
+training: inv-scaling with Nesterov&#39;s momentum
+Training set score: 0.860000
+Training set loss: 0.530948
+training: adam
+Training set score: 0.966667
+Training set loss: 0.170472
+
+learning on dataset digits
+training: constant learning-rate
+Training set score: 0.952699
+Training set loss: 0.251749
+training: constant with momentum
+Training set score: 0.993322
+Training set loss: 0.043992
+training: constant with Nesterov&#39;s momentum
+Training set score: 0.993322
+Training set loss: 0.043968
+training: inv-scaling learning-rate
+Training set score: 0.641625
+Training set loss: 1.911581
+training: inv-scaling with momentum
+Training set score: 0.917641
+Training set loss: 0.294868
+training: inv-scaling with Nesterov&#39;s momentum
+Training set score: 0.913189
+Training set loss: 0.321059
+training: adam
+Training set score: 0.936004
+Training set loss: 0.440831
+
+learning on dataset circles
+training: constant learning-rate
+Training set score: 0.570000
+Training set loss: 0.678999
+training: constant with momentum
+Training set score: 0.430000
+Training set loss: 0.697175
+training: constant with Nesterov&#39;s momentum
+Training set score: 0.930000
+Training set loss: 0.165652
+training: inv-scaling learning-rate
+Training set score: 0.610000
+Training set loss: 0.706786
+training: inv-scaling with momentum
+Training set score: 0.450000
+Training set loss: 0.694934
+training: inv-scaling with Nesterov&#39;s momentum
+Training set score: 0.400000
+Training set loss: 0.695454
+training: adam
+Training set score: 0.900000
+Training set loss: 0.557896
+
+learning on dataset moons
+training: constant learning-rate
+Training set score: 0.850000
+Training set loss: 0.341627
+training: constant with momentum
+Training set score: 0.850000
+Training set loss: 0.334766
+training: constant with Nesterov&#39;s momentum
+Training set score: 0.850000
+Training set loss: 0.334590
+training: inv-scaling learning-rate
+Training set score: 0.670000
+Training set loss: 0.633410
+training: inv-scaling with momentum
+Training set score: 0.820000
+Training set loss: 0.473458
+training: inv-scaling with Nesterov&#39;s momentum
+Training set score: 0.820000
+Training set loss: 0.473958
+training: adam
+Training set score: 0.870000
+Training set loss: 0.334795
+</pre></div>
+</div>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../../_downloads/plot_mlp_training_curves.py"><tt class="xref download docutils literal"><span class="pre">plot_mlp_training_curves.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">__doc__</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.neural_network.MLPClassifier.html#sklearn.neural_network.MLPClassifier"><span class="n">MLPClassifier</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler"><span class="n">MinMaxScaler</span></a>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+
+<span class="c"># different learning rate schedules and momentum parameters</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">[{</span><span class="s">&#39;algorithm&#39;</span><span class="p">:</span> <span class="s">&#39;sgd&#39;</span><span class="p">,</span> <span class="s">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="s">&#39;constant&#39;</span><span class="p">,</span> <span class="s">&#39;momentum&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+           <span class="s">&#39;learning_rate_init&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">},</span>
+          <span class="p">{</span><span class="s">&#39;algorithm&#39;</span><span class="p">:</span> <span class="s">&#39;sgd&#39;</span><span class="p">,</span> <span class="s">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="s">&#39;constant&#39;</span><span class="p">,</span> <span class="s">&#39;momentum&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span>
+           <span class="s">&#39;nesterovs_momentum&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&#39;learning_rate_init&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">},</span>
+          <span class="p">{</span><span class="s">&#39;algorithm&#39;</span><span class="p">:</span> <span class="s">&#39;sgd&#39;</span><span class="p">,</span> <span class="s">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="s">&#39;constant&#39;</span><span class="p">,</span> <span class="s">&#39;momentum&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span>
+           <span class="s">&#39;nesterovs_momentum&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s">&#39;learning_rate_init&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">},</span>
+          <span class="p">{</span><span class="s">&#39;algorithm&#39;</span><span class="p">:</span> <span class="s">&#39;sgd&#39;</span><span class="p">,</span> <span class="s">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="s">&#39;invscaling&#39;</span><span class="p">,</span> <span class="s">&#39;momentum&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+           <span class="s">&#39;learning_rate_init&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">},</span>
+          <span class="p">{</span><span class="s">&#39;algorithm&#39;</span><span class="p">:</span> <span class="s">&#39;sgd&#39;</span><span class="p">,</span> <span class="s">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="s">&#39;invscaling&#39;</span><span class="p">,</span> <span class="s">&#39;momentum&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span>
+           <span class="s">&#39;nesterovs_momentum&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s">&#39;learning_rate_init&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">},</span>
+          <span class="p">{</span><span class="s">&#39;algorithm&#39;</span><span class="p">:</span> <span class="s">&#39;sgd&#39;</span><span class="p">,</span> <span class="s">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="s">&#39;invscaling&#39;</span><span class="p">,</span> <span class="s">&#39;momentum&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span>
+           <span class="s">&#39;nesterovs_momentum&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&#39;learning_rate_init&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">},</span>
+          <span class="p">{</span><span class="s">&#39;algorithm&#39;</span><span class="p">:</span> <span class="s">&#39;adam&#39;</span><span class="p">}]</span>
+
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;constant learning-rate&quot;</span><span class="p">,</span> <span class="s">&quot;constant with momentum&quot;</span><span class="p">,</span>
+          <span class="s">&quot;constant with Nesterov&#39;s momentum&quot;</span><span class="p">,</span>
+          <span class="s">&quot;inv-scaling learning-rate&quot;</span><span class="p">,</span> <span class="s">&quot;inv-scaling with momentum&quot;</span><span class="p">,</span>
+          <span class="s">&quot;inv-scaling with Nesterov&#39;s momentum&quot;</span><span class="p">,</span> <span class="s">&quot;adam&quot;</span><span class="p">]</span>
+
+<span class="n">plot_args</span> <span class="o">=</span> <span class="p">[{</span><span class="s">&#39;c&#39;</span><span class="p">:</span> <span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="s">&#39;linestyle&#39;</span><span class="p">:</span> <span class="s">&#39;-&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s">&#39;c&#39;</span><span class="p">:</span> <span class="s">&#39;green&#39;</span><span class="p">,</span> <span class="s">&#39;linestyle&#39;</span><span class="p">:</span> <span class="s">&#39;-&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s">&#39;c&#39;</span><span class="p">:</span> <span class="s">&#39;blue&#39;</span><span class="p">,</span> <span class="s">&#39;linestyle&#39;</span><span class="p">:</span> <span class="s">&#39;-&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s">&#39;c&#39;</span><span class="p">:</span> <span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="s">&#39;linestyle&#39;</span><span class="p">:</span> <span class="s">&#39;--&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s">&#39;c&#39;</span><span class="p">:</span> <span class="s">&#39;green&#39;</span><span class="p">,</span> <span class="s">&#39;linestyle&#39;</span><span class="p">:</span> <span class="s">&#39;--&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s">&#39;c&#39;</span><span class="p">:</span> <span class="s">&#39;blue&#39;</span><span class="p">,</span> <span class="s">&#39;linestyle&#39;</span><span class="p">:</span> <span class="s">&#39;--&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s">&#39;c&#39;</span><span class="p">:</span> <span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="s">&#39;linestyle&#39;</span><span class="p">:</span> <span class="s">&#39;-&#39;</span><span class="p">}]</span>
+
+
+<span class="k">def</span> <span class="nf">plot_on_dataset</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="c"># for each dataset, plot learning for each learning strategy</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">learning on dataset </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler"><span class="n">MinMaxScaler</span></a><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">mlps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&quot;digits&quot;</span><span class="p">:</span>
+        <span class="c"># digits is larger but converges fairly quickly</span>
+        <span class="n">max_iter</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">max_iter</span> <span class="o">=</span> <span class="mi">400</span>
+
+    <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;training: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">label</span><span class="p">)</span>
+        <span class="n">mlp</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.neural_network.MLPClassifier.html#sklearn.neural_network.MLPClassifier"><span class="n">MLPClassifier</span></a><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span> <span class="o">**</span><span class="n">param</span><span class="p">)</span>
+        <span class="n">mlp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">mlps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mlp</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Training set score: </span><span class="si">%f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">mlp</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Training set loss: </span><span class="si">%f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">mlp</span><span class="o">.</span><span class="n">loss_</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">mlp</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">args</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mlps</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">plot_args</span><span class="p">):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mlp</span><span class="o">.</span><span class="n">loss_curve_</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <a href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="c"># load / generate some toy datasets</span>
+<span class="n">iris</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.load_iris.html#sklearn.datasets.load_iris"><span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span></a><span class="p">()</span>
+<span class="n">digits</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.load_digits.html#sklearn.datasets.load_digits"><span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span></a><span class="p">()</span>
+<span class="n">data_sets</span> <span class="o">=</span> <span class="p">[(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+             <span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+             <span class="n">datasets</span><span class="o">.</span><span class="n">make_circles</span><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+             <a href="../../modules/generated/sklearn.datasets.make_moons.html#sklearn.datasets.make_moons"><span class="n">datasets</span><span class="o">.</span><span class="n">make_moons</span></a><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">data_sets</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;iris&#39;</span><span class="p">,</span> <span class="s">&#39;digits&#39;</span><span class="p">,</span>
+                                                    <span class="s">&#39;circles&#39;</span><span class="p">,</span> <span class="s">&#39;moons&#39;</span><span class="p">]):</span>
+    <span class="n">plot_on_dataset</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_lines</span><span class="p">(),</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s">&quot;upper center&quot;</span><span class="p">)</span>
+<a href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.show"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Total running time of the example:</strong>  6.75 seconds
+( 0 minutes  6.75 seconds)</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2010 - 2015, scikit-learn developers (BSD License).
+      <a href="../../_sources/auto_examples/neural_networks/plot_mlp_training_curves.txt" rel="nofollow">Show this page source</a>
+    </div>
+     <div class="rel">
+    
+    <div class="buttonPrevious">
+      <a href="plot_mnist_filters.html">Previous
+      </a>
+    </div>
+    
+     </div>
+
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22606712-2']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    
+
+    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript"> google.load('search', '1',
+        {language : 'en'}); google.setOnLoadCallback(function() {
+            var customSearchControl = new
+            google.search.CustomSearchControl('016639176250731907682:tjtqbvtvij0');
+            customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+            var options = new google.search.DrawOptions();
+            options.setAutoComplete(true);
+            customSearchControl.draw('cse', options); }, true);
+    </script>
+  </body>
+</html>

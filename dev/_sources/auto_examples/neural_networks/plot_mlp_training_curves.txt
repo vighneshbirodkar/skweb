@@ -1,0 +1,125 @@
+
+
+.. _example_neural_networks_plot_mlp_training_curves.py:
+
+
+========================================================
+Compare Stochastic learning strategies for MLPClassifier
+========================================================
+
+This example visualizes some training loss curves for different stochastic
+learning strategies, including SGD and Adam. Because of time-constraints, we
+use several small datasets, for which L-BFGS might be more suitable. The
+general trend shown in these examples seems to carry over to larger datasets,
+however.
+
+
+
+.. image:: images/plot_mlp_training_curves_001.png
+    :align: center
+
+
+**Script output**::
+
+  learning on dataset iris
+  training: constant learning-rate
+  Training set score: 0.973333
+  Training set loss: 0.098011
+  training: constant with momentum
+  Training set score: 0.980000
+  Training set loss: 0.050168
+  training: constant with Nesterov's momentum
+  Training set score: 0.980000
+  Training set loss: 0.050133
+  training: inv-scaling learning-rate
+  Training set score: 0.633333
+  Training set loss: 1.032142
+  training: inv-scaling with momentum
+  Training set score: 0.860000
+  Training set loss: 0.529899
+  training: inv-scaling with Nesterov's momentum
+  Training set score: 0.860000
+  Training set loss: 0.530948
+  training: adam
+  Training set score: 0.966667
+  Training set loss: 0.170472
+  
+  learning on dataset digits
+  training: constant learning-rate
+  Training set score: 0.952699
+  Training set loss: 0.251749
+  training: constant with momentum
+  Training set score: 0.993322
+  Training set loss: 0.043992
+  training: constant with Nesterov's momentum
+  Training set score: 0.993322
+  Training set loss: 0.043968
+  training: inv-scaling learning-rate
+  Training set score: 0.641625
+  Training set loss: 1.911581
+  training: inv-scaling with momentum
+  Training set score: 0.917641
+  Training set loss: 0.294868
+  training: inv-scaling with Nesterov's momentum
+  Training set score: 0.913189
+  Training set loss: 0.321059
+  training: adam
+  Training set score: 0.936004
+  Training set loss: 0.440831
+  
+  learning on dataset circles
+  training: constant learning-rate
+  Training set score: 0.570000
+  Training set loss: 0.678999
+  training: constant with momentum
+  Training set score: 0.430000
+  Training set loss: 0.697175
+  training: constant with Nesterov's momentum
+  Training set score: 0.930000
+  Training set loss: 0.165652
+  training: inv-scaling learning-rate
+  Training set score: 0.610000
+  Training set loss: 0.706786
+  training: inv-scaling with momentum
+  Training set score: 0.450000
+  Training set loss: 0.694934
+  training: inv-scaling with Nesterov's momentum
+  Training set score: 0.400000
+  Training set loss: 0.695454
+  training: adam
+  Training set score: 0.900000
+  Training set loss: 0.557896
+  
+  learning on dataset moons
+  training: constant learning-rate
+  Training set score: 0.850000
+  Training set loss: 0.341627
+  training: constant with momentum
+  Training set score: 0.850000
+  Training set loss: 0.334766
+  training: constant with Nesterov's momentum
+  Training set score: 0.850000
+  Training set loss: 0.334590
+  training: inv-scaling learning-rate
+  Training set score: 0.670000
+  Training set loss: 0.633410
+  training: inv-scaling with momentum
+  Training set score: 0.820000
+  Training set loss: 0.473458
+  training: inv-scaling with Nesterov's momentum
+  Training set score: 0.820000
+  Training set loss: 0.473958
+  training: adam
+  Training set score: 0.870000
+  Training set loss: 0.334795
+
+
+
+**Python source code:** :download:`plot_mlp_training_curves.py <plot_mlp_training_curves.py>`
+
+.. literalinclude:: plot_mlp_training_curves.py
+    :lines: 12-
+
+**Total running time of the example:**  6.75 seconds
+( 0 minutes  6.75 seconds)
+    
